@@ -1,15 +1,15 @@
-Requirements
+# Requirements
 
 None (only the 'GeoIP.dat' file is needed).  To download a free GeoIP Standard Country
 database, go to
 http://maxmind.com/download/geoip/database/
 
-Install
+# Install
 
 Just place the 'geoip.inc' file somewhere according to the 'include_path' directive of
 your 'php.ini' file, or just place it in the same directory as your PHP scripts.
 
-Usage
+# Usage
 
 Gets country name by hostname :
 
