@@ -26,6 +26,10 @@ class ComposerStaticInit592bda2b7d80340ec52f2281d9c9e3f3
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Lumera\\GeoIp\\Exception\\GeoIpException' => __DIR__ . '/../..' . '/src/Exception/GeoIpException.php',
+        'Lumera\\GeoIp\\GeoIp' => __DIR__ . '/../..' . '/src/GeoIp.php',
+        'Lumera\\GeoIp\\GeoIpCityRecord' => __DIR__ . '/../..' . '/src/GeoIpCityRecord.php',
+        'Lumera\\GeoIp\\Timezone\\TimezoneResolver' => __DIR__ . '/../..' . '/src/Timezone/TimezoneResolver.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -7,4 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Lumera\\GeoIp\\Exception\\GeoIpException' => $baseDir . '/src/Exception/GeoIpException.php',
+    'Lumera\\GeoIp\\GeoIp' => $baseDir . '/src/GeoIp.php',
+    'Lumera\\GeoIp\\GeoIpCityRecord' => $baseDir . '/src/GeoIpCityRecord.php',
+    'Lumera\\GeoIp\\Timezone\\TimezoneResolver' => $baseDir . '/src/Timezone/TimezoneResolver.php',
 );
