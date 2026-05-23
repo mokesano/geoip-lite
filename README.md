@@ -343,7 +343,7 @@ This project is distributed under the **GNU General Public License v3.0 (GPL‑3
 
 <p align="center">
   <br>
-  <sub>Made with ❤️ for the PHP and networking community</sub>
+  <creator>Made with ❤️ for the PHP and networking community</creator>
   <br><br>
   <a href="https://github.com/mokesano/geoip-lite/stargazers">
     <img src="https://img.shields.io/github/stars/mokesano/geoip-lite?style=social" alt="GitHub Stars">
@@ -352,5 +352,5 @@ This project is distributed under the **GNU General Public License v3.0 (GPL‑3
     <img src="https://img.shields.io/github/forks/mokesano/geoip-lite?style=social" alt="GitHub Forks">
   </a>
   <br><br>
-  <sub>© 2026 Rochmady. Licensed under GPL‑3.0‑only.</sub>
+  <copyright>© 2026 Rochmady. Licensed under GPL‑3.0‑only.</copyright>
 </p>
