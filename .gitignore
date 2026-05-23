@@ -1,6 +1,9 @@
-```
-vendor/
-composer.lock
+# ---------------------------------------------------------------
+# SANGIA APIS - .GITIGNORE CONFIGURATION
+# Optimized for Laravel/CodeIgniter Hybrid & Unit Testing
+# ---------------------------------------------------------------
+
+# 1. Environment & secrets
 *.log
 .DS_Store
 Thumbs.db
@@ -27,4 +30,3 @@ node_modules/
 .yarn/
 .pnp.*
 .yarn-integrity
-```
