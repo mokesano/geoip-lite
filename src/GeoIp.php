@@ -83,7 +83,7 @@ class GeoIp
         "PY", "QA", "RE", "RO", "RU", "RW", "SA", "SB", "SC", "SD",
         "SE", "SG", "SH", "SI", "SJ", "SK", "SL", "SM", "SN", "SO",
         "SR", "ST", "SV", "SY", "SZ", "TC", "TD", "TF", "TG", "TH",
-        "TJ", "TK", "TM", "TN", "TO", "TL", "TR", "TTO", "TV", "TW",
+        "TJ", "TK", "TM", "TN", "TO", "TL", "TR", "TT", "TV", "TW",
         "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE",
         "VG", "VI", "VN", "VU", "WF", "WS", "YE", "YT", "RS", "ZA",
         "ZM", "ME", "ZW", "A1", "A2", "O1", "AX", "GG", "IM", "JE",

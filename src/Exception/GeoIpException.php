@@ -1,6 +1,6 @@
 <?php
 
-namespace Lumera\GeoIp;
+namespace Lumera\GeoIp\Exception;
 
 /**
  * GeoIP Exception class
