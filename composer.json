@@ -5,13 +5,13 @@
     "license": "GPL-3.0-only",
     "autoload": {
         "psr-4": {
-            "Lumera\\\\GeoIp\\\\": "src/"
+            "Lumera\\GeoIp\\": "src/"
         },
         "files": [
             "src/functions.php"
         ]
     },
     "require": {
-        "php": "^8.4"
+        "php": ">=8.2"
     }
 }
