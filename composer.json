@@ -3,6 +3,9 @@
     "description": "MaxMind GeoLite City Lite Library for Lumera Editorial Workflow",
     "type": "library",
     "license": "GPL-3.0-only",
+    "config": {
+        "vendor-dir": "library"
+    },
     "autoload": {
         "psr-4": {
             "Lumera\\GeoIp\\": "src/"

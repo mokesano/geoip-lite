@@ -3,7 +3,7 @@
         'name' => 'lumera/geoip-lite',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '97eb39b3c8e878e5661dc078b02a99e750249115',
+        'reference' => '172944d3a2d84241967cdfb49e5f763efa921774',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'lumera/geoip-lite' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '97eb39b3c8e878e5661dc078b02a99e750249115',
+            'reference' => '172944d3a2d84241967cdfb49e5f763efa921774',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
