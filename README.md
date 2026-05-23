@@ -1,6 +1,6 @@
-# 🌍 GeoIP Legacy — *Wizdam Edition*
+# 🌍 GeoIP Lite — *Wizdam Edition*
 
-**A modernized PHP 8.4+ library to look up IP address country, region, city, and ISP information using MaxMind’s classic GeoIP Legacy binary database format.**
+**A modernized PHP 8.4+ library to look up IP address country, region, city, and ISP information using MaxMind’s classic GeoIP Lite binary database format.**
 
 ---
 
@@ -32,11 +32,11 @@
 
 ## 📖 About the Project
 
-GeoIP Legacy is a **PHP port of the classic MaxMind GeoIP Legacy C library** — the original tool for translating IP addresses into geographic and network-identifying information. This library works with MaxMind’s binary `.dat` database files, including the free **GeoLite City** and **GeoLite Country** databases.
+GeoIP Lite is a **PHP port of the classic MaxMind GeoIP Lite C library** — the original tool for translating IP addresses into geographic and network-identifying information. This library works with MaxMind’s binary `.dat` database files, including the free **GeoLite City** and **GeoLite Country** databases.
 
 This **Wizdam Edition** modernizes the original codebase for **PHP 8.4+**, adding **PSR‑4 autoloading** and **Composer packaging** so you can drop it straight into any modern PHP project.
 
-> ⚠️ **Important notice** — MaxMind retired the GeoIP Legacy product line on **May 31, 2022**. The downloadable `.dat` files are no longer officially updated. If you are starting a new project, we strongly recommend using [MaxMind’s GeoIP2 PHP API](https://dev.maxmind.com/geoip/geoip2/downloadable/) instead. This library remains useful for **maintaining legacy systems**, reading **archived databases**, or working within networks that still depend on the classic `.dat` format.
+> ⚠️ **Important notice** — MaxMind retired the GeoIP Lite product line on **May 31, 2022**. The downloadable `.dat` files are no longer officially updated. If you are starting a new project, we strongly recommend using [MaxMind’s GeoIP2 PHP API](https://dev.maxmind.com/geoip/geoip2/downloadable/) instead. This library remains useful for **maintaining legacy systems**, reading **archived databases**, or working within networks that still depend on the classic `.dat` format.
 
 ---
 
@@ -281,9 +281,9 @@ geoip-legacy/
 
 ---
 
-## ⚠️ GeoIP Legacy vs. GeoIP2
+## ⚠️ GeoIP Lite vs. GeoIP2
 
-| | **GeoIP Legacy** (this library) | **GeoIP2** |
+| | **GeoIP Lite** (this library) | **GeoIP2** |
 | :--- | :--- | :--- |
 | **Database format** | Binary `.dat` | Binary `.mmdb` |
 | **Status** | Retired (May 2022) | Actively maintained |
@@ -293,7 +293,7 @@ geoip-legacy/
 | **IPv6 support** | Limited | Full native |
 | **Anonymous IP** | Proxy edition | Built‑in traits |
 
-If you are currently using GeoIP Legacy in production, consider **migrating to GeoIP2**. MaxMind provides a [detailed upgrade guide](https://dev.maxmind.com/geoip/geoip2/whats-new-in-geoip2/).
+If you are currently using GeoIP Lite in production, consider **migrating to GeoIP2**. MaxMind provides a [detailed upgrade guide](https://dev.maxmind.com/geoip/geoip2/whats-new-in-geoip2/).
 
 ---
 
@@ -335,7 +335,7 @@ This project is distributed under the **GNU General Public License v3.0 (GPL‑3
 | **Original Author** | MaxMind, Inc. — original C library and database format |
 | **Original PHP Port** | Jim Winstead & MaxMind contributors |
 | **Wizdam Edition Maintainer** | [Rochmady (mokesano)](https://github.com/mokesano) |
-| **MaxMind GeoIP Legacy** | [maxmind.com](https://www.maxmind.com/) |
+| **MaxMind GeoIP Lite** | [maxmind.com](https://www.maxmind.com/) |
 | **GeoIP2 Migration** | [dev.maxmind.com/geoip/geoip2/](https://dev.maxmind.com/geoip/geoip2/) |
 | **Database Source** | Free GeoLite City database — included for testing |
 
