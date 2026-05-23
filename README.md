@@ -1,23 +1,23 @@
-# 🌍 GeoIP Lite — *Wizdam Edition*
+# 🌍 GeoIP Lite — *Lumera Edition*
 
 **A modernized PHP 8.4+ library to look up IP address country, region, city, and ISP information using MaxMind’s classic GeoIP Lite binary database format.**
 
 ---
 
 <p align="center">
-  <a href="https://github.com/mokesano/geoip-legacy">
+  <a href="https://github.com/mokesano/geoip-lite">
     <img src="https://img.shields.io/badge/PHP-^8.4-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP Version">
   </a>
-  <a href="https://github.com/mokesano/geoip-legacy/blob/main/LICENSE">
+  <a href="https://github.com/mokesano/geoip-lite/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-GPL%203.0--only-blue?style=for-the-badge" alt="License">
   </a>
-  <a href="https://packagist.org/packages/wizdam/geoip-legacy">
-    <img src="https://img.shields.io/badge/packagist-wizdam%2Fgeoip--legacy-F28D1A?style=for-the-badge&logo=packagist&logoColor=white" alt="Packagist">
+  <a href="https://packagist.org/packages/codelumera/geoip-lite">
+    <img src="https://img.shields.io/badge/packagist-lumera%2Fgeoip--lite-F28D1A?style=for-the-badge&logo=packagist&logoColor=white" alt="Packagist">
   </a>
-  <a href="https://github.com/mokesano/geoip-legacy/actions">
+  <a href="https://github.com/mokesano/geoip-lite/actions">
     <img src="https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white" alt="Build">
   </a>
-  <a href="https://github.com/mokesano/geoip-legacy/security/advisories">
+  <a href="https://github.com/mokesano/geoip-lite/security/advisories">
     <img src="https://img.shields.io/badge/security-policy-important?style=for-the-badge&logo=github" alt="Security Policy">
   </a>
 </p>
@@ -34,9 +34,9 @@
 
 GeoIP Lite is a **PHP port of the classic MaxMind GeoIP Lite C library** — the original tool for translating IP addresses into geographic and network-identifying information. This library works with MaxMind’s binary `.dat` database files, including the free **GeoLite City** and **GeoLite Country** databases.
 
-This **Wizdam Edition** modernizes the original codebase for **PHP 8.4+**, adding **PSR‑4 autoloading** and **Composer packaging** so you can drop it straight into any modern PHP project.
+This **Lumera Edition** modernizes the original codebase for **PHP 8.4+**, adding **PSR‑4 autoloading** and **Composer packaging** so you can drop it straight into any modern PHP project.
 
-> ⚠️ **Important notice** — MaxMind retired the GeoIP Lite product line on **May 31, 2022**. The downloadable `.dat` files are no longer officially updated. If you are starting a new project, we strongly recommend using [MaxMind’s GeoIP2 PHP API](https://dev.maxmind.com/geoip/geoip2/downloadable/) instead. This library remains useful for **maintaining legacy systems**, reading **archived databases**, or working within networks that still depend on the classic `.dat` format.
+> ⚠️ **Important notice** — MaxMind retired the GeoIP Lite product line on **May 31, 2022**. The downloadable `.dat` files are no longer officially updated. If you are starting a new project, we strongly recommend using [MaxMind’s GeoIP2 PHP API](https://dev.maxmind.com/geoip/geoip2/downloadable/) instead. This library remains useful for **maintaining lite systems**, reading **archived databases**, or working within networks that still depend on the classic `.dat` format.
 
 ---
 
@@ -52,7 +52,7 @@ This **Wizdam Edition** modernizes the original codebase for **PHP 8.4+**, addin
 | **IPv4 + IPv6** | Full support for both IPv4 and IPv6 addresses |
 | **Rich Database Support** | Handles Country, City, Region, ISP, Organization, Domain, and Proxy editions |
 | **PHP 8.4+ Native** | Fully compatible with modern PHP — no deprecation warnings |
-| **PSR‑4 Autoloading** | Namespaced under `Wizdam\GeoIp` for instant Composer autoloading |
+| **PSR‑4 Autoloading** | Namespaced under `Lumera\GeoIp` for instant Composer autoloading |
 | **Lightweight** | Zero external dependencies — only a `.dat` file is required |
 | **Time‑Zone Mapping** | Includes timezone lookup array for inferred UTC offset detection |
 
@@ -63,7 +63,7 @@ This **Wizdam Edition** modernizes the original codebase for **PHP 8.4+**, addin
 ### Via Composer (Recommended)
 
 ```bash
-composer require wizdam/geoip-legacy
+composer require codelumera/geoip-lite
 ```
 
 ### Manual Installation
@@ -71,8 +71,8 @@ composer require wizdam/geoip-legacy
 Clone the repository and include the autoloader:
 
 ```bash
-git clone https://github.com/mokesano/geoip-legacy.git
-cd geoip-legacy
+git clone https://github.com/mokesano/geoip-lite.git
+cd geoip-lite
 composer install
 ```
 
@@ -81,7 +81,7 @@ composer install
 - **PHP** ≥ 8.4
 - A MaxMind binary database file (e.g. `GeoIP.dat`, `GeoLiteCity.dat`)
 
-> 📦 A free **GeoLiteCity.dat** sample is included in the [`data/`](https://github.com/mokesano/geoip-legacy/tree/main/data) directory for testing.
+> 📦 A free **GeoLiteCity.dat** sample is included in the [`data/`](https://github.com/mokesano/geoip-lite/tree/main/data) directory for testing.
 
 ---
 
@@ -94,7 +94,7 @@ composer install
 
 require_once 'vendor/autoload.php';
 
-use Wizdam\GeoIp\GeoIp;
+use Lumera\GeoIp\GeoIp;
 
 // Open the country database
 $gi = GeoIp::open('/usr/local/share/GeoIP/GeoIP.dat', GEOIP_STANDARD);
@@ -115,7 +115,7 @@ GeoIp::close($gi);
 
 require_once 'vendor/autoload.php';
 
-use Wizdam\GeoIp\GeoIpCity;
+use Lumera\GeoIp\GeoIpCity;
 
 // Open the city database
 $gi = GeoIp::open('/usr/local/share/GeoIP/GeoLiteCity.dat', GEOIP_STANDARD);
@@ -140,7 +140,7 @@ GeoIp::close($gi);
 
 require_once 'vendor/autoload.php';
 
-use Wizdam\GeoIp\GeoIp;
+use Lumera\GeoIp\GeoIp;
 
 // Use memory cache for repeated lookups
 $gi = GeoIp::open('/usr/local/share/GeoIP/GeoLiteCity.dat', GEOIP_MEMORY_CACHE);
@@ -161,7 +161,7 @@ GeoIp::close($gi);
 
 require_once 'vendor/autoload.php';
 
-use Wizdam\GeoIp\GeoIp;
+use Lumera\GeoIp\GeoIp;
 
 $gi = GeoIp::open('/usr/local/share/GeoIP/GeoIP.dat', GEOIP_STANDARD);
 
@@ -260,7 +260,7 @@ The library **auto‑detects** the database edition when opened — you do not n
 ## 🏗️ Project Structure
 
 ```
-geoip-legacy/
+geoip-lite/
 ├── data/
 │   └── GeoLiteCity.dat          # Sample city database (for testing)
 ├── src/
@@ -271,7 +271,7 @@ geoip-legacy/
 │   ├── functions.php            # Autoloaded helper functions
 │   ├── ChangeLog                # Historical release notes
 │   └── timezone/                # Timezone offset lookup table
-├── composer.json                # PSR‑4 autoloading, namespace Wizdam\GeoIp
+├── composer.json                # PSR‑4 autoloading, namespace Lumera\GeoIp
 ├── LICENSE                      # GPL‑3.0‑only
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
@@ -287,7 +287,7 @@ geoip-legacy/
 | :--- | :--- | :--- |
 | **Database format** | Binary `.dat` | Binary `.mmdb` |
 | **Status** | Retired (May 2022) | Actively maintained |
-| **PHP library** | `wizdam/geoip-legacy` | `geoip2/geoip2` |
+| **PHP library** | `lumera/geoip-lite` | `geoip2/geoip2` |
 | **Updates** | ❌ No longer published | ✅ Weekly updates |
 | **Accuracy** | Varies by edition | Improved precision |
 | **IPv6 support** | Limited | Full native |
@@ -299,14 +299,14 @@ If you are currently using GeoIP Lite in production, consider **migrating to Geo
 
 ## 🤝 Contributing
 
-We welcome contributions! Please review our [Contributing Guidelines](https://github.com/mokesano/geoip-legacy/blob/main/CONTRIBUTING.md) before submitting a pull request.
+We welcome contributions! Please review our [Contributing Guidelines](https://github.com/mokesano/geoip-lite/blob/main/CONTRIBUTING.md) before submitting a pull request.
 
 **Coding Standards:**
 - PHP code must follow **PSR‑1** guidelines
 - JavaScript follows [Crockford's conventions](http://javascript.crockford.com/code.html)
 - All new features should include updated documentation
 
-This project adheres to the [Contributor Covenant Code of Conduct](https://github.com/mokesano/geoip-legacy/blob/main/CODE_OF_CONDUCT.md). By participating, you agree to uphold these standards.
+This project adheres to the [Contributor Covenant Code of Conduct](https://github.com/mokesano/geoip-lite/blob/main/CODE_OF_CONDUCT.md). By participating, you agree to uphold these standards.
 
 ---
 
@@ -316,15 +316,15 @@ Security is taken seriously. **Please do not publicly disclose any vulnerabiliti
 
 - **Reporting:** Send vulnerability reports to [security@sangia.org](mailto:security@sangia.org)
 - **Acknowledgment:** The lead maintainer will respond within 48 hours
-- **Advisories:** Published at [GitHub Security Advisories](https://github.com/mokesano/geoip-legacy/security/advisories)
+- **Advisories:** Published at [GitHub Security Advisories](https://github.com/mokesano/geoip-lite/security/advisories)
 
-Full details are in our [Security Policy](https://github.com/mokesano/geoip-legacy/blob/main/SECURITY.md).
+Full details are in our [Security Policy](https://github.com/mokesano/geoip-lite/blob/main/SECURITY.md).
 
 ---
 
 ## 📄 License
 
-This project is distributed under the **GNU General Public License v3.0 (GPL‑3.0‑only)**. See [LICENSE](https://github.com/mokesano/geoip-legacy/blob/main/LICENSE) for the full text.
+This project is distributed under the **GNU General Public License v3.0 (GPL‑3.0‑only)**. See [LICENSE](https://github.com/mokesano/geoip-lite/blob/main/LICENSE) for the full text.
 
 ---
 
@@ -334,7 +334,7 @@ This project is distributed under the **GNU General Public License v3.0 (GPL‑3
 | :--- | :--- |
 | **Original Author** | MaxMind, Inc. — original C library and database format |
 | **Original PHP Port** | Jim Winstead & MaxMind contributors |
-| **Wizdam Edition Maintainer** | [Rochmady (mokesano)](https://github.com/mokesano) |
+| **Lumera Edition Maintainer** | [Rochmady (mokesano)](https://github.com/mokesano) |
 | **MaxMind GeoIP Lite** | [maxmind.com](https://www.maxmind.com/) |
 | **GeoIP2 Migration** | [dev.maxmind.com/geoip/geoip2/](https://dev.maxmind.com/geoip/geoip2/) |
 | **Database Source** | Free GeoLite City database — included for testing |
@@ -345,11 +345,11 @@ This project is distributed under the **GNU General Public License v3.0 (GPL‑3
   <br>
   <sub>Made with ❤️ for the PHP and networking community</sub>
   <br><br>
-  <a href="https://github.com/mokesano/geoip-legacy/stargazers">
-    <img src="https://img.shields.io/github/stars/mokesano/geoip-legacy?style=social" alt="GitHub Stars">
+  <a href="https://github.com/mokesano/geoip-lite/stargazers">
+    <img src="https://img.shields.io/github/stars/mokesano/geoip-lite?style=social" alt="GitHub Stars">
   </a>
-  <a href="https://github.com/mokesano/geoip-legacy/network/members">
-    <img src="https://img.shields.io/github/forks/mokesano/geoip-legacy?style=social" alt="GitHub Forks">
+  <a href="https://github.com/mokesano/geoip-lite/network/members">
+    <img src="https://img.shields.io/github/forks/mokesano/geoip-lite?style=social" alt="GitHub Forks">
   </a>
   <br><br>
   <sub>© 2026 Rochmady. Licensed under GPL‑3.0‑only.</sub>

@@ -1,11 +1,11 @@
 {
-    "name": "wizdam/geoip-legacy",
-    "description": "MaxMind GeoLite City Legacy Library for Wizdam Editorial",
+    "name": "lumera/geoip-lite",
+    "description": "MaxMind GeoLite City Lite Library for Lumera Editorial Workflow",
     "type": "library",
     "license": "GPL-3.0-only",
     "autoload": {
         "psr-4": {
-            "Wizdam\\\\GeoIp\\\\": "src/"
+            "Lumera\\\\GeoIp\\\\": "src/"
         },
         "files": [
             "src/functions.php"

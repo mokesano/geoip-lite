@@ -1,4 +1,4 @@
-# Contributing to GeoIp-Legacy
+# Contributing to GeoIp-Lite
 
 First of all, thank you for contributing!
 
