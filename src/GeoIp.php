@@ -217,69 +217,69 @@ class GeoIp
             throw new GeoIpException("Database file not found: {$filename}");
         }
 
-        $gi = new self();
-        $gi->flags = $flags;
-        $gi->filehandle = fopen($filename, 'rb');
+        $geoIpInstance = new self();
+        $geoIpInstance->flags = $flags;
+        $geoIpInstance->filehandle = fopen($filename, 'rb');
 
-        if ($gi->filehandle === false) {
+        if ($geoIpInstance->filehandle === false) {
             throw new GeoIpException("Cannot open database file: {$filename}");
         }
 
         // Read database metadata
-        fseek($gi->filehandle, -3, SEEK_END);
-        $buf = fread($gi->filehandle, 3);
+        fseek($geoIpInstance->filehandle, -3, SEEK_END);
+        $buf = fread($geoIpInstance->filehandle, 3);
         
         if (strlen($buf) !== 3) {
-            fclose($gi->filehandle);
+            fclose($geoIpInstance->filehandle);
             throw new GeoIpException("Invalid database format");
         }
 
         $edition = unpack('C*', $buf);
-        $gi->databaseType = $edition[1] + ($edition[2] ?? 0) * 256 + ($edition[3] ?? 0) * 65536;
+        $geoIpInstance->databaseType = $edition[1] + ($edition[2] ?? 0) * 256 + ($edition[3] ?? 0) * 65536;
 
         // Find database segments
-        if ($gi->databaseType === self::GEOIP_COUNTRY_EDITION || 
-            $gi->databaseType === self::GEOIP_COUNTRY_EDITION_V6) {
-            $gi->databaseSegments = self::_find_segment($gi, $gi->databaseType);
-            $gi->record_length = 3;
-        } elseif ($gi->databaseType === self::GEOIP_CITY_EDITION_REV0 || 
-                  $gi->databaseType === self::GEOIP_CITY_EDITION_REV1) {
-            $gi->databaseSegments = self::_find_segment($gi, $gi->databaseType);
-            $gi->record_length = 4;
+        if ($geoIpInstance->databaseType === self::GEOIP_COUNTRY_EDITION || 
+            $geoIpInstance->databaseType === self::GEOIP_COUNTRY_EDITION_V6) {
+            $geoIpInstance->databaseSegments = self::_find_segment($geoIpInstance, $geoIpInstance->databaseType);
+            $geoIpInstance->record_length = 3;
+        } elseif ($geoIpInstance->databaseType === self::GEOIP_CITY_EDITION_REV0 || 
+                  $geoIpInstance->databaseType === self::GEOIP_CITY_EDITION_REV1) {
+            $geoIpInstance->databaseSegments = self::_find_segment($geoIpInstance, $geoIpInstance->databaseType);
+            $geoIpInstance->record_length = 4;
         } else {
-            $gi->databaseSegments = self::_find_segment($gi, $gi->databaseType);
-            $gi->record_length = 3;
+            $geoIpInstance->databaseSegments = self::_find_segment($geoIpInstance, $geoIpInstance->databaseType);
+            $geoIpInstance->record_length = 3;
         }
 
         // Load into memory if requested
         if ($flags & self::GEOIP_MEMORY_CACHE) {
-            fseek($gi->filehandle, 0, SEEK_SET);
-            $gi->memory_buffer = fread($gi->filehandle, filesize($filename));
-            fclose($gi->filehandle);
-            $gi->filehandle = null;
+            fseek($geoIpInstance->filehandle, 0, SEEK_SET);
+            $geoIpInstance->memory_buffer = fread($geoIpInstance->filehandle, filesize($filename));
+            fclose($geoIpInstance->filehandle);
+            $geoIpInstance->filehandle = null;
         }
 
-        return $gi;
+        return $geoIpInstance;
     }
 
     /**
      * Close a GeoIP database
      *
-     * @param GeoIp|null $gi The GeoIp object to close
+     * @param GeoIp|null $geoIpInstance The GeoIp object to close
      * @return bool True on success
      */
-    public static function geoip_close(?self $gi): bool
+    public static function geoip_close(?self $geoIpInstance): bool
     {
-        if ($gi === null) {
+        if ($geoIpInstance === null) {
             return false;
         }
 
-        if ($gi->filehandle !== null && !($gi->flags & self::GEOIP_MEMORY_CACHE)) {
-            fclose($gi->filehandle);
+        if ($geoIpInstance->filehandle !== null && !($geoIpInstance->flags & self::GEOIP_MEMORY_CACHE)) {
+            fclose($geoIpInstance->filehandle);
         }
 
-        $gi->filehandle = null;
-        $gi->memory_buffer = null;
+        $geoIpInstance->filehandle = null;
+        $geoIpInstance->memory_buffer = null;
 
         return true;
     }
@@ -287,13 +287,13 @@ class GeoIp
     /**
      * Look up country code by IP address
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param string $addr IP address to look up
      * @return string Country code (2 letters) or empty string if not found
      */
-    public static function geoip_country_code_by_addr(self $gi, string $addr): string
+    public static function geoip_country_code_by_addr(self $geoIpInstance, string $addr): string
     {
-        $countryId = self::_get_country_id($gi, $addr);
+        $countryId = self::_get_country_id($geoIpInstance, $addr);
         if ($countryId < 1 || $countryId > 253) {
             return '';
         }
@@ -303,13 +303,13 @@ class GeoIp
     /**
      * Look up country name by IP address
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param string $addr IP address to look up
      * @return string Country name or empty string if not found
      */
-    public static function geoip_country_name_by_addr(self $gi, string $addr): string
+    public static function geoip_country_name_by_addr(self $geoIpInstance, string $addr): string
     {
-        $countryId = self::_get_country_id($gi, $addr);
+        $countryId = self::_get_country_id($geoIpInstance, $addr);
         if ($countryId < 1 || $countryId > 253) {
             return '';
         }
@@ -319,26 +319,26 @@ class GeoIp
     /**
      * Look up country ID by IP address
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param string $addr IP address to look up
      * @return int Country ID (1-253) or 0 if not found
      */
-    public static function geoip_id_by_addr(self $gi, string $addr): int
+    public static function geoip_id_by_addr(self $geoIpInstance, string $addr): int
     {
-        return self::_get_country_id($gi, $addr);
+        return self::_get_country_id($geoIpInstance, $addr);
     }
 
     /**
      * Look up city record by IP address
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param string $addr IP address to look up
      * @return GeoIpCityRecord|null City record object or null if not found
      */
-    public static function geoip_record_by_addr(self $gi, string $addr): ?GeoIpCityRecord
+    public static function geoip_record_by_addr(self $geoIpInstance, string $addr): ?GeoIpCityRecord
     {
-        if ($gi->databaseType !== self::GEOIP_CITY_EDITION_REV0 && 
-            $gi->databaseType !== self::GEOIP_CITY_EDITION_REV1) {
+        if ($geoIpInstance->databaseType !== self::GEOIP_CITY_EDITION_REV0 && 
+            $geoIpInstance->databaseType !== self::GEOIP_CITY_EDITION_REV1) {
             return null;
         }
 
@@ -347,12 +347,12 @@ class GeoIp
             return null;
         }
 
-        $offset = self::_seek_country_v6($gi, $ipnum);
+        $offset = self::_seek_country_v6($geoIpInstance, $ipnum);
         if ($offset === 0) {
             return null;
         }
 
-        $record = self::_get_city_record($gi, $offset);
+        $record = self::_get_city_record($geoIpInstance, $offset);
         if ($record === null) {
             return null;
         }
@@ -363,25 +363,99 @@ class GeoIp
     /**
      * Get organization by IP address
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param string $addr IP address to look up
      * @return string|null Organization name or null if not found
      */
-    public static function geoip_org_by_addr(self $gi, string $addr): ?string
+    public static function geoip_org_by_addr(self $geoIpInstance, string $addr): ?string
     {
-        return self::_get_org_or_isp($gi, $addr);
+        return self::_get_org_or_isp($geoIpInstance, $addr);
     }
 
     /**
      * Get ISP by IP address
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param string $addr IP address to look up
      * @return string|null ISP name or null if not found
      */
-    public static function geoip_isp_by_addr(self $gi, string $addr): ?string
+    public static function geoip_isp_by_addr(self $geoIpInstance, string $addr): ?string
     {
-        return self::_get_org_or_isp($gi, $addr);
+        return self::_get_org_or_isp($geoIpInstance, $addr);
+    }
+
+    /**
+     * Instance method to close the database
+     *
+     * @return bool True on success
+     */
+    public function geoip_close(): bool
+    {
+        return self::geoip_close($this);
+    }
+
+    /**
+     * Instance method to look up country code by IP address
+     *
+     * @param string $addr IP address to look up
+     * @return string Country code (2 letters) or empty string if not found
+     */
+    public function geoip_country_code_by_addr(string $addr): string
+    {
+        return self::geoip_country_code_by_addr($this, $addr);
+    }
+
+    /**
+     * Instance method to look up country name by IP address
+     *
+     * @param string $addr IP address to look up
+     * @return string Country name or empty string if not found
+     */
+    public function geoip_country_name_by_addr(string $addr): string
+    {
+        return self::geoip_country_name_by_addr($this, $addr);
+    }
+
+    /**
+     * Instance method to look up city record by IP address
+     *
+     * @param string $addr IP address to look up
+     * @return GeoIpCityRecord|null City record object or null if not found
+     */
+    public function geoip_record_by_addr(string $addr): ?GeoIpCityRecord
+    {
+        return self::geoip_record_by_addr($this, $addr);
+    }
+
+    /**
+     * Instance method to get region by IP address
+     *
+     * @param string $addr IP address to look up
+     * @return array|null Region data or null if not found
+     */
+    public function geoip_region_by_addr(string $addr): ?array
+    {
+        $record = self::geoip_record_by_addr($this, $addr);
+        if ($record === null) {
+            return null;
+        }
+        return [
+            'country_code' => $record->country_code,
+            'region' => $record->region,
+        ];
+    }
+
+    /**
+     * Instance method to open a GeoIP database file
+     *
+     * @param string $filename Path to the database file
+     * @param int $flags Flags for opening the database
+     * @return GeoIp Returns the GeoIp object
+     * @throws GeoIpException
+     */
+    public function geoip_open(string $filename, int $flags = self::GEOIP_STANDARD): self
+    {
+        return self::geoip_open($filename, $flags);
     }
 
     /**
@@ -404,80 +478,80 @@ class GeoIp
     /**
      * Find segment in database
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param int $databaseType Database type
      * @return int Segment offset
      */
-    private static function _find_segment(self $gi, int $databaseType): int
+    private static function _find_segment(self $geoIpInstance, int $databaseType): int
     {
-        $filepos = ftell($gi->filehandle);
+        $filepos = ftell($geoIpInstance->filehandle);
         
         if ($databaseType === self::GEOIP_COUNTRY_EDITION) {
-            fseek($gi->filehandle, -3, SEEK_END);
-            $buf = fread($gi->filehandle, 3);
+            fseek($geoIpInstance->filehandle, -3, SEEK_END);
+            $buf = fread($geoIpInstance->filehandle, 3);
             $segment = unpack('C*', $buf);
             $result = ($segment[1] ?? 0) + (($segment[2] ?? 0) << 8) + (($segment[3] ?? 0) << 16);
         } else {
-            fseek($gi->filehandle, -3, SEEK_END);
-            $buf = fread($gi->filehandle, 3);
+            fseek($geoIpInstance->filehandle, -3, SEEK_END);
+            $buf = fread($geoIpInstance->filehandle, 3);
             $segment = unpack('C*', $buf);
             $result = ($segment[1] ?? 0) + (($segment[2] ?? 0) << 8) + (($segment[3] ?? 0) << 16);
         }
 
-        fseek($gi->filehandle, $filepos, SEEK_SET);
+        fseek($geoIpInstance->filehandle, $filepos, SEEK_SET);
         return $result;
     }
 
     /**
      * Get country ID by IP address
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param string $addr IP address
      * @return int Country ID
      */
-    private static function _get_country_id(self $gi, string $addr): int
+    private static function _get_country_id(self $geoIpInstance, string $addr): int
     {
         $ipnum = self::_ip_to_number($addr);
         if ($ipnum === null) {
             return 0;
         }
 
-        if ($gi->databaseType === self::GEOIP_COUNTRY_EDITION_V6) {
-            return self::_seek_country_v6($gi, $ipnum);
+        if ($geoIpInstance->databaseType === self::GEOIP_COUNTRY_EDITION_V6) {
+            return self::_seek_country_v6($geoIpInstance, $ipnum);
         }
 
-        return self::_seek_country($gi, $ipnum);
+        return self::_seek_country($geoIpInstance, $ipnum);
     }
 
     /**
      * Seek country in IPv4 database
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param int $ipnum IP as number
      * @return int Country ID
      */
-    private static function _seek_country(self $gi, int $ipnum): int
+    private static function _seek_country(self $geoIpInstance, int $ipnum): int
     {
         $offset = 0;
         
         for ($depth = 31; $depth >= 0; $depth--) {
             $byte = ($ipnum >> $depth) & 1;
             
-            if ($gi->flags & self::GEOIP_MEMORY_CACHE) {
-                $buffer = $gi->memory_buffer;
+            if ($geoIpInstance->flags & self::GEOIP_MEMORY_CACHE) {
+                $buffer = $geoIpInstance->memory_buffer;
                 $index = $offset * 6 + $byte * 3;
                 $data = substr($buffer, $index, 3);
                 $value = unpack('C*', $data);
                 $offset = $value[1] + ($value[2] << 8) + ($value[3] << 16);
             } else {
-                fseek($gi->filehandle, $offset * 6 + $byte * 3, SEEK_SET);
-                $data = fread($gi->filehandle, 3);
+                fseek($geoIpInstance->filehandle, $offset * 6 + $byte * 3, SEEK_SET);
+                $data = fread($geoIpInstance->filehandle, 3);
                 $value = unpack('C*', $data);
                 $offset = $value[1] + ($value[2] << 8) + ($value[3] << 16);
             }
 
-            if ($offset >= $gi->databaseSegments) {
-                return $offset - $gi->databaseSegments;
+            if ($offset >= $geoIpInstance->databaseSegments) {
+                return $offset - $geoIpInstance->databaseSegments;
             }
         }
 
@@ -487,32 +561,32 @@ class GeoIp
     /**
      * Seek country in IPv6 database
      *
-     * @param GeoIp $gi The GeoIp object
+     * @param GeoIp $geoIpInstance The GeoIp object
      * @param int $ipnum IP as number
      * @return int Country ID
      */
-    private static function _seek_country_v6(self $gi, int $ipnum): int
+    private static function _seek_country_v6(self $geoIpInstance, int $ipnum): int
     {
         $offset = 0;
         
         for ($depth = 127; $depth >= 0; $depth--) {
             $byte = ($ipnum >> $depth) & 1;
             
-            if ($gi->flags & self::GEOIP_MEMORY_CACHE) {
-                $buffer = $gi->memory_buffer;
+            if ($geoIpInstance->flags & self::GEOIP_MEMORY_CACHE) {
+                $buffer = $geoIpInstance->memory_buffer;
                 $index = $offset * 6 + $byte * 3;
                 $data = substr($buffer, $index, 3);
                 $value = unpack('C*', $data);
                 $offset = $value[1] + ($value[2] << 8) + ($value[3] << 16);
             } else {
-                fseek($gi->filehandle, $offset * 6 + $byte * 3, SEEK_SET);
-                $data = fread($gi->filehandle, 3);
+                fseek($geoIpInstance->filehandle, $offset * 6 + $byte * 3, SEEK_SET);
+                $data = fread($geoIpInstance->filehandle, 3);
                 $value = unpack('C*', $data);
                 $offset = $value[1] + ($value[2] << 8) + ($value[3] << 16);
             }
 
-            if ($offset >= $gi->databaseSegments) {
-                return $offset - $gi->databaseSegments;
+            if ($offset >= $geoIpInstance->databaseSegments) {
+                return $offset - $geoIpInstance->databaseSegments;
             }
         }
 
