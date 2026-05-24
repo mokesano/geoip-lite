@@ -27,12 +27,13 @@ class GeoIpTest extends TestCase
      */
     public function testGeoIpOpen(): void
     {
-        $gi = GeoIp::geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
+        $geoIpInstance = new GeoIp();
+        $geoIpInstance = $geoIpInstance->geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
         
-        $this->assertInstanceOf(GeoIp::class, $gi);
-        $this->assertNotNull($gi->filehandle);
+        $this->assertInstanceOf(GeoIp::class, $geoIpInstance);
+        $this->assertNotNull($geoIpInstance->filehandle);
         
-        $gi->geoip_close();
+        $geoIpInstance->geoip_close();
     }
 
     /**
@@ -40,8 +41,9 @@ class GeoIpTest extends TestCase
      */
     public function testGeoIpClose(): void
     {
-        $gi = GeoIp::geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
-        $result = $gi->geoip_close();
+        $geoIpInstance = new GeoIp();
+        $geoIpInstance = $geoIpInstance->geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
+        $result = $geoIpInstance->geoip_close();
         
         $this->assertTrue($result);
     }
@@ -51,15 +53,16 @@ class GeoIpTest extends TestCase
      */
     public function testGeoipCountryCodeByAddr(): void
     {
-        $gi = GeoIp::geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
+        $geoIpInstance = new GeoIp();
+        $geoIpInstance = $geoIpInstance->geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
         
         // Test with a known IP (Google DNS)
-        $countryCode = $gi->geoip_country_code_by_addr('8.8.8.8');
+        $countryCode = $geoIpInstance->geoip_country_code_by_addr('8.8.8.8');
         
         $this->assertIsString($countryCode);
         $this->assertEquals(2, strlen($countryCode));
         
-        $gi->geoip_close();
+        $geoIpInstance->geoip_close();
     }
 
     /**
@@ -67,15 +70,16 @@ class GeoIpTest extends TestCase
      */
     public function testGeoipCountryNameByAddr(): void
     {
-        $gi = GeoIp::geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
+        $geoIpInstance = new GeoIp();
+        $geoIpInstance = $geoIpInstance->geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
         
         // Test with a known IP (Google DNS)
-        $countryName = $gi->geoip_country_name_by_addr('8.8.8.8');
+        $countryName = $geoIpInstance->geoip_country_name_by_addr('8.8.8.8');
         
         $this->assertIsString($countryName);
         $this->assertNotEmpty($countryName);
         
-        $gi->geoip_close();
+        $geoIpInstance->geoip_close();
     }
 
     /**
@@ -83,16 +87,17 @@ class GeoIpTest extends TestCase
      */
     public function testGeoipRecordByAddr(): void
     {
-        $gi = GeoIp::geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
+        $geoIpInstance = new GeoIp();
+        $geoIpInstance = $geoIpInstance->geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
         
         // Test with a known IP
-        $record = $gi->geoip_record_by_addr('8.8.8.8');
+        $record = $geoIpInstance->geoip_record_by_addr('8.8.8.8');
         
         if ($record !== false) {
             $this->assertInstanceOf(\Lumera\GeoIp\GeoIpCityRecord::class, $record);
         }
         
-        $gi->geoip_close();
+        $geoIpInstance->geoip_close();
     }
 
     /**
@@ -100,10 +105,11 @@ class GeoIpTest extends TestCase
      */
     public function testGeoipRegionByAddr(): void
     {
-        $gi = GeoIp::geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
+        $geoIpInstance = new GeoIp();
+        $geoIpInstance = $geoIpInstance->geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
         
         // Test with a known IP
-        $region = $gi->geoip_region_by_addr('8.8.8.8');
+        $region = $geoIpInstance->geoip_region_by_addr('8.8.8.8');
         
         if ($region !== false) {
             $this->assertIsArray($region);
@@ -111,7 +117,7 @@ class GeoIpTest extends TestCase
             $this->assertArrayHasKey('region', $region);
         }
         
-        $gi->geoip_close();
+        $geoIpInstance->geoip_close();
     }
 
     /**
@@ -119,13 +125,14 @@ class GeoIpTest extends TestCase
      */
     public function testInvalidIpAddress(): void
     {
-        $gi = GeoIp::geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
+        $geoIpInstance = new GeoIp();
+        $geoIpInstance = $geoIpInstance->geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
         
-        $countryCode = $gi->geoip_country_code_by_addr('invalid.ip.address');
+        $countryCode = $geoIpInstance->geoip_country_code_by_addr('invalid.ip.address');
         
         $this->assertFalse($countryCode);
         
-        $gi->geoip_close();
+        $geoIpInstance->geoip_close();
     }
 
     /**
@@ -133,11 +140,12 @@ class GeoIpTest extends TestCase
      */
     public function testDatabaseType(): void
     {
-        $gi = GeoIp::geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
+        $geoIpInstance = new GeoIp();
+        $geoIpInstance = $geoIpInstance->geoip_open($this->databasePath, GeoIp::GEOIP_STANDARD);
         
-        $this->assertIsString($gi->databaseType);
-        $this->assertNotEmpty($gi->databaseType);
+        $this->assertIsString($geoIpInstance->databaseType);
+        $this->assertNotEmpty($geoIpInstance->databaseType);
         
-        $gi->geoip_close();
+        $geoIpInstance->geoip_close();
     }
 }
